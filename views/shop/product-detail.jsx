@@ -1,6 +1,7 @@
 const React = require('react');
 
 const DefaultLayout = require('../layouts/default');
+const AddToCart = require('../common/AddToCart');
 
 const ProductDetails = props => <DefaultLayout
 	path={props.path}
@@ -17,9 +18,7 @@ const ProductDetails = props => <DefaultLayout
 			<h3>${props.product.price}</h3>
 			<p>{props.product.description}</p>
 
-			<form action="/add-to-cart" method="POST">
-				<button href="#" className="btn btn-primary">Add to Cart</button>
-			</form>
+			<AddToCart productId={props.product.id} />
 		</div>
 	</div>
 </DefaultLayout>;

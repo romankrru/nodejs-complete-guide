@@ -1,5 +1,5 @@
 const React = require('react');
-const DefaultLayout = require('./layouts/default');
+const DefaultLayout = require('../layouts/default');
 
 const Shop = props => <DefaultLayout
 	path={props.path}

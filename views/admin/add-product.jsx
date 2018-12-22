@@ -21,7 +21,7 @@ const AddProduct = props => <DefaultLayout
 
 			<div class="form-group">
 				<label htmlFor="Price">Price</label>
-				<input type="number" class="form-control" id="price" name="price" />
+				<input type="number" class="form-control" id="price" name="price" step="0.01" />
 			</div>
 
 			<div class="form-group">

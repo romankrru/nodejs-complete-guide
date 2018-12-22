@@ -12,10 +12,11 @@ const Shop = props => {
 			.map((chunk, i) => <div class="row" key={i}>
 				{_.map(chunk, (product, j) => <div class="col-md-3 mb-3 mt-4" key={j}>
 					<div class="card">
-					<img src="https://duskrider3740.files.wordpress.com/2016/12/red-book.jpg" class="card-img-top" alt=" ABook" />
+					<img src={product.imageUrl} class="card-img-top" alt=" ABook" />
 					<div class="card-body">
 						<h5 class="card-title">{product.title}</h5>
-						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<p class="card-text">{product.description}</p>
+						<p class="card-text">${product.price}</p>
 						<a href="#" class="btn btn-primary">Add to Cart</a>
 					</div>
 					</div>

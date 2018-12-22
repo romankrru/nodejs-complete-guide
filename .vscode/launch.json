@@ -9,9 +9,9 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
-			"program": "${workspaceFolder}/basics/app.js",
+			"program": "${workspaceFolder}/app.js",
 			"restart": true,
-			"runtimeExecutable": "${workspaceFolder}/basics/node_modules/.bin/nodemon",
+			"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
 			"console": "integratedTerminal"
 		}
 	]

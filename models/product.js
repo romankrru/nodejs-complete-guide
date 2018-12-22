@@ -28,7 +28,8 @@ module.exports = class Product {
 			data.push(this)
 
 			fs.writeFile(p, JSON.stringify(data), (err) => {
-				console.error(err);
+				if (err)
+					console.error(err);
 			});
 		});
 	}

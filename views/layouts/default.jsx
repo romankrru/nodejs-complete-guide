@@ -16,7 +16,7 @@ const DefaultLayout = props => <html lang="en">
 	<body>
 		<Navigation path={props.path} />
 
-		<div class="container">
+		<div className="container">
 			{props.children}
 		</div>
 	</body>

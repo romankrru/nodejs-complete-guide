@@ -19,6 +19,8 @@ const ProductList = props => {
 							<p class="card-text">{product.description}</p>
 							<p class="card-text">${product.price}</p>
 
+							<a href={`/products/${product.id}`}>Details</a>
+
 							<form action="/add-to-cart" method="POST">
 								<button href="#" class="btn btn-primary">Add to Cart</button>
 							</form>

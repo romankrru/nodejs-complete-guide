@@ -8,7 +8,7 @@ exports.getIndex = (req, res, next) => {
 			path: '/',
 		});
 	});
-}
+};
 
 exports.getProducts = (req, res, next) => {
 	Product.fetchAll(data => {
@@ -18,7 +18,7 @@ exports.getProducts = (req, res, next) => {
 			path: '/products',
 		});
 	});
-}
+};
 
 exports.getCart = (req, res, next) => {
 	Product.fetchAll(data => {
@@ -28,7 +28,17 @@ exports.getCart = (req, res, next) => {
 			path: '/cart',
 		});
 	});
-}
+};
+
+exports.getOrders = (req, res, next) => {
+	Product.fetchAll(data => {
+		res.render('shop/orders', {
+			prods: data,
+			pageTitle: 'Your Orders',
+			path: '/orders',
+		});
+	});
+};
 
 exports.getCheckout = (req, res, next) => {
 	Product.fetchAll(data => {
@@ -38,5 +48,5 @@ exports.getCheckout = (req, res, next) => {
 			path: '/checkout',
 		});
 	});
-}
+};
 

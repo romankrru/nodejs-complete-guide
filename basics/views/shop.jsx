@@ -13,7 +13,7 @@ const Shop = props => <DefaultLayout
 					<h1 className="product__title">{product.title}</h1>
 				</header>
 				<div className="card__image">
-					<img src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png" alt="A Book" />
+					<img src="https://duskrider3740.files.wordpress.com/2016/12/red-book.jpg" alt="A Book" />
 				</div>
 				<div className="card__content">
 					<h2 className="product__price">$19.99</h2>

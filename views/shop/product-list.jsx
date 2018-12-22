@@ -1,31 +1,36 @@
 const React = require('react');
+const _  = require('lodash');
+
 const DefaultLayout = require('../layouts/default');
 
-const Shop = props => <DefaultLayout
-	path={props.path}
-	pageTitle={props.pageTitle}
-	styles={['/css/product.css']}
->
-	{props.prods.length
-		? <div className="grid">
-			{props.prods.map((product, i) => <article className="card product-item" key={i}>
-				<header className="card__header">
-					<h1 className="product__title">{product.title}</h1>
-				</header>
-				<div className="card__image">
-					<img src="https://duskrider3740.files.wordpress.com/2016/12/red-book.jpg" alt="A Book" />
-				</div>
-				<div className="card__content">
-					<h2 className="product__price">$19.99</h2>
-					<p className="product__description">A very interesting book about so many even more interesting things!</p>
-				</div>
-				<div className="card__actions">
-					<button className="btn">Add to Cart</button>
-				</div>
-			</article>)}
-		</div>
+const Shop = props => {
+	let content = <h1>No products to display</h1>;
 
-		: <h1>No products to display</h1>}
-</DefaultLayout>;
+	if (props.prods.length) {
+		content = _.chain(props.prods)
+			.chunk(4)
+			.map(chunk => <div class="row">
+				{_.map(chunk, product => <div class="col-md-3 mb-3 mt-4">
+					<div class="card">
+					<img src="https://duskrider3740.files.wordpress.com/2016/12/red-book.jpg" class="card-img-top" alt=" ABook" />
+					<div class="card-body">
+						<h5 class="card-title">{product.title}</h5>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Add to Cart</a>
+					</div>
+					</div>
+				</div>)}
+			</div>)
+			.value();
+	}
+
+
+	return <DefaultLayout
+		path={props.path}
+		pageTitle={props.pageTitle}
+	>
+		{content}
+	</DefaultLayout>
+}
 
 module.exports = Shop;

@@ -8,7 +8,9 @@
     "start": "nodemon app.js"
   },
   "nodemonConfig": {
-    "ignore": ["data/products.json"]
+    "ignore": [
+      "data/products.json"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -17,9 +19,11 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-react-views": "^0.11.0",
+    "lodash": "^4.17.11",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   }

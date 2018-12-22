@@ -4,16 +4,15 @@ const DefaultLayout = require('../layouts/default');
 const AddProduct = props => <DefaultLayout
 	path={props.path}
 	pageTitle={props.pageTitle}
-	styles={["/css/forms.css", "/css/product.css"]}
 >
 	<main>
-		<form className="product-form" action="/admin/add-product" method="POST">
-			<div className="form-control">
-				<label htmlFor="title">Title</label>
-				<input type="text" name="title" id="title" />
+		<form action="/admin/add-product" method="POST">
+			<div class="form-group">
+				<label for="title">Book Title</label>
+				<input type="text" class="form-control" id="title" name="title" />
 			</div>
 
-			<button className="btn" type="submit">Add Product</button>
+			<button type="submit" class="btn btn-primary mb-2">Add product</button>
 		</form>
 	</main>
 </DefaultLayout>;

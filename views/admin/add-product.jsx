@@ -8,7 +8,7 @@ const AddProduct = props => <DefaultLayout
 	<main>
 		<form action="/admin/add-product" method="POST">
 			<div class="form-group">
-				<label for="title">Book Title</label>
+				<label htmlFor="title">Book Title</label>
 				<input type="text" class="form-control" id="title" name="title" />
 			</div>
 

@@ -9,8 +9,8 @@ const Shop = props => {
 	if (props.prods.length) {
 		content = _.chain(props.prods)
 			.chunk(4)
-			.map(chunk => <div class="row">
-				{_.map(chunk, product => <div class="col-md-3 mb-3 mt-4">
+			.map((chunk, i) => <div class="row" key={i}>
+				{_.map(chunk, (product, j) => <div class="col-md-3 mb-3 mt-4" key={j}>
 					<div class="card">
 					<img src="https://duskrider3740.files.wordpress.com/2016/12/red-book.jpg" class="card-img-top" alt=" ABook" />
 					<div class="card-body">

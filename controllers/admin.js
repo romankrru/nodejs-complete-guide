@@ -28,6 +28,19 @@ exports.getEditProduct = (req, res, next) => {
 	});
 };
 
+exports.postEditProduct = (req, res, next) => {
+	const productId = req.params.productId
+
+	Product.update(productId, {
+		title: req.body.title,
+		imageUrl: req.body.imageUrl,
+		price: req.body.price,
+		description: req.body.description,
+	});
+
+	res.redirect('/admin/products')
+};
+
 exports.getProducts = (req, res, next) => {
 	Product.fetchAll(data => {
 		res.render('admin/products', {

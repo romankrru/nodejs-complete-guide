@@ -1,6 +1,6 @@
 const React = require('react');
 
-const ProductForm = props => <form action="/admin/add-product" method="POST">
+const ProductForm = props => <form action={props.action} method="POST">
 	<div className="form-group">
 		<label htmlFor="title">Book Title</label>
 

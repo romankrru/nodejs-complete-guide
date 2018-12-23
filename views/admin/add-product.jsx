@@ -10,7 +10,11 @@ const AddProduct = props => <DefaultLayout
 	<main>
 		<h1>Add product</h1>
 		<hr/>
-		<ProductForm buttonTitle="Add product"/>
+
+		<ProductForm
+			action="/admin/add-product"
+			buttonTitle="Add product"
+		/>
 	</main>
 </DefaultLayout>;
 

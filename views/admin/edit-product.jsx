@@ -10,6 +10,7 @@ const EditProduct = props => <DefaultLayout
 	<main>
 		<h1>Edit product</h1>
 		<hr/>
+
 		<ProductForm
 			action={`/admin/edit-product/${props.product.id}`}
 			buttonTitle="Update product"

@@ -27,6 +27,7 @@ const AdminProducts = props => {
 									Edit
 								</a>
 
+								<input type="hidden" value={product.id} name="productId" />
 								<button type="submit" className="btn btn-danger">Delete</button>
 							</form>
 						</div>

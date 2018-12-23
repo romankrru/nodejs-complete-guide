@@ -1,11 +1,12 @@
 const React = require('react');
+const _ = require('lodash');
 
 const DefaultLayout = require('../layouts/default');
 
 const Cart = props => {
 	let content = <h1>Cart is empty</h1>;
 
-	if (props.products) {
+	if (!_.isEmpty(props.products)) {
 		content = <React.Fragment>
 			<ul className="list-unstyled">
 				{props.products.map(product => <li className="media mt-2 border" key={product.id}>
@@ -22,7 +23,10 @@ const Cart = props => {
 					</div>
 
 					<div>
-						<button className="btn btn-danger mt-2 mr-2">Delete</button>
+						<form action="/cart-delete-product" method="POST">
+							<input type="hidden" value={product.id} name="productId"/>
+							<button className="btn btn-danger mt-2 mr-2">Delete</button>
+						</form>
 					</div>
 				</li>)}
 			</ul>

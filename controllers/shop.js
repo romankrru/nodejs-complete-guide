@@ -52,14 +52,6 @@ exports.getCart = (req, res) => {
 			});
 		});
 	});
-
-	// Product.fetchAll(products => {
-	// 	res.render('shop/cart', {
-	// 		pageTitle: 'Your Cart',
-	// 		path: '/cart',
-	// 		products: products,
-	// 	});
-	// });
 };
 
 exports.postCart = (req, res) => {
@@ -70,6 +62,15 @@ exports.postCart = (req, res) => {
 	});
 
 	res.redirect('/cart');
+};
+
+exports.postCartDeleteProduct = (req, res) => {
+	const productId = req.body.productId;
+
+	Product.findById(productId, product => {
+		Cart.delete(productId, product.price);
+		res.redirect('/cart');
+	});
 };
 
 exports.getOrders = (req, res) => {

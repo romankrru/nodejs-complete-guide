@@ -5,6 +5,10 @@ module.exports = {
         "es6": true
     },
     "extends": "eslint:recommended",
+    "globals": {
+        __dirname: true,
+        process: true,
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -15,6 +19,9 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "sort-keys": ["error", "asc"],
+        "comma-dangle": ["error", "always-multiline"],
+        "no-console": 1,
         "indent": [
             "error",
             "tab"

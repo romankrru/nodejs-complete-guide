@@ -9,10 +9,10 @@ const p = path.join(rootDir, 'data', 'cart.json');
 module.exports = class Cart {
 	static addProduct(id, productPrice) {
 		fs.readFile(p, (err, fileContent) => {
-			let cart = {products: [], totalPrice: 0}
+			let cart = {products: [], totalPrice: 0};
 
 			if (!err) {
-				cart = JSON.parse(fileContent)
+				cart = JSON.parse(fileContent);
 			}
 
 			const existingProductIndex = cart.products.findIndex(prod => prod.id === id);
@@ -46,7 +46,7 @@ module.exports = class Cart {
 			if (err) {
 				console.error(err);
 				return;
-			};
+			}
 
 			const cart = JSON.parse(fileContent);
 			const updatedCart = {...cart};
@@ -59,6 +59,6 @@ module.exports = class Cart {
 				if (err)
 					console.error(err);
 			});
-		})
+		});
 	}
-}
+};

@@ -9,19 +9,25 @@ const AdminProducts = props => {
 	if (props.prods.length) {
 		content = _.chain(props.prods)
 			.chunk(4)
-			.map((chunk, i) => <div class="row" key={i}>
-				{_.map(chunk, (product, j) => <div class="col-md-3 mb-3 mt-4" key={j}>
-					<div class="card">
-						<img src={product.imageUrl} class="card-img-top" alt=" ABook" />
+			.map((chunk, i) => <div className="row" key={i}>
+				{_.map(chunk, (product, j) => <div className="col-md-3 mb-3 mt-4" key={j}>
+					<div className="card">
+						<img src={product.imageUrl} className="card-img-top" alt=" ABook" />
 
-						<div class="card-body">
-							<h5 class="card-title">{product.title}</h5>
-							<p class="card-text">{product.description}</p>
-							<p class="card-text">${product.price}</p>
+						<div className="card-body">
+							<h5 className="card-title">{product.title}</h5>
+							<p className="card-text">{product.description}</p>
+							<p className="card-text">${product.price}</p>
 
 							<form action="/admin/delete-product" method="POST">
-								<a href="/admin/edit-product" class="btn btn-primary mr-3">Edit</a>
-								<button type="submit" class="btn btn-danger">Delete</button>
+								<a
+									href={`/admin/edit-product/${product.id}`}
+									className="btn btn-primary mr-3"
+								>
+									Edit
+								</a>
+
+								<button type="submit" className="btn btn-danger">Delete</button>
 							</form>
 						</div>
 					</div>
@@ -35,6 +41,8 @@ const AdminProducts = props => {
 		path={props.path}
 		pageTitle={props.pageTitle}
 	>
+		<h1>Admin products</h1>
+		<hr/>
 		{content}
 	</DefaultLayout>
 }

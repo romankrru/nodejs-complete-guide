@@ -18,6 +18,16 @@ exports.getAddProduct = (req, res, next) => {
 	});
 };
 
+exports.getEditProduct = (req, res, next) => {
+	Product.findById(req.params.productId, product => {
+		res.render('admin/edit-product', {
+			pageTitle: 'Edit product',
+			product: product,
+			path: '/admin/products',
+		});
+	});
+};
+
 exports.getProducts = (req, res, next) => {
 	Product.fetchAll(data => {
 		res.render('admin/products', {

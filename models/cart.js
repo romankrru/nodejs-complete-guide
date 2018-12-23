@@ -61,4 +61,16 @@ module.exports = class Cart {
 			});
 		});
 	}
+
+	static getCart(cb) {
+		fs.readFile(p, (err, fileContent) => {
+			if (err) {
+				console.error(err);
+				cb(null);
+			}
+
+			const cart = JSON.parse(fileContent);
+			cb(cart);
+		});
+	}
 };

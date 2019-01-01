@@ -10,7 +10,7 @@ const db = require('./util/database');
 
 const app = express();
 
-// db.execute()
+db.execute('SELECT * FROM products').then().catch();
 
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());

@@ -6,6 +6,7 @@ const express = require('express');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
+const sequelize = require('./util/database');
 
 const app = express();
 
@@ -20,6 +21,13 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorController.get404);
 
-app.listen(3000, () => {
-	console.log('Started on http://localhost:3000');
-});
+sequelize.sync()
+
+	.then(() => {
+		app.listen(3000);
+		console.log('Started on http://localhost:3000');
+	})
+
+	.catch(err => console.error(err));
+
+

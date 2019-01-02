@@ -34,13 +34,17 @@ exports.getProducts = (req, res) => {
 };
 
 exports.getProduct = (req, res) => {
-	Product.findById(req.params.productId, p => {
-		res.render('shop/product-detail', {
-			pageTitle: p.title,
-			path: '/products',
-			product: p,
-		});
-	});
+	Product.findById(req.params.productId)
+
+		.then(([product]) => {
+			res.render('shop/product-detail', {
+				pageTitle: product[0].title,
+				path: '/products',
+				product: product[0],
+			});
+		})
+
+		.catch(err => console.error(err));
 };
 
 exports.getCart = (req, res) => {

@@ -6,18 +6,8 @@ const express = require('express');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
-const db = require('./util/database');
 
 const app = express();
-
-db.execute('SELECT * FROM products')
-	.then(result => {
-		console.log(result[0], result[1]);
-	})
-
-	.catch(err => {
-		console.error(err);
-	});
 
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());

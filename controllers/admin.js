@@ -19,26 +19,33 @@ exports.getAddProduct = (req, res) => {
 };
 
 exports.getEditProduct = (req, res) => {
-	Product.findById(req.params.productId, product => {
-		res.render('admin/edit-product', {
-			pageTitle: 'Edit product',
-			path: '/admin/products',
-			product: product,
-		});
-	});
+	Product.findByPk(req.params.productId)
+
+		.then(product => {
+			res.render('admin/edit-product', {
+				pageTitle: 'Edit product',
+				path: '/admin/products',
+				product: product,
+			});
+		})
+
+		.catch(err => console.error(err));
 };
 
 exports.postEditProduct = (req, res) => {
-	const productId = req.params.productId;
+	Product.findByPk(req.params.productId)
 
-	Product.update(productId, {
-		description: req.body.description,
-		imageUrl: req.body.imageUrl,
-		price: req.body.price,
-		title: req.body.title,
-	});
+		.then(product => {
+			product.description = req.body.description;
+			product.imageUrl = req.body.imageUrl;
+			product.price = req.body.price;
+			product.title = req.body.title;
 
-	res.redirect('/admin/products');
+			return product.save();
+		})
+
+		.then(() => res.redirect('/admin/products'))
+		.catch(err => console.error(err));
 };
 
 exports.postDeleteProduct = (req, res) => {

@@ -30,13 +30,13 @@ exports.getProducts = (req, res) => {
 };
 
 exports.getProduct = (req, res) => {
-	Product.findById(req.params.productId)
+	Product.findByPk(req.params.productId)
 
-		.then(([product]) => {
+		.then(product => {
 			res.render('shop/product-detail', {
-				pageTitle: product[0].title,
+				pageTitle: product.title,
 				path: '/products',
-				product: product[0],
+				product: product,
 			});
 		})
 

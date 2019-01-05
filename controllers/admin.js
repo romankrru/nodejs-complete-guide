@@ -1,11 +1,12 @@
 const Product = require('../models/product');
 
-exports.postAddProduct = (req, res) => Product.create({
+exports.postAddProduct = (req, res) => req.user.createProduct({
 	description: req.body.description,
 	imageUrl: req.body.imageUrl,
 	price: req.body.price,
 	title: req.body.title,
 })
+
 	.then(() => res.redirect('/'))
 	.catch(err => console.error(err));
 

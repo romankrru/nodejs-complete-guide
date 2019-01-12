@@ -15,7 +15,7 @@ const Cart = props => {
 					<div className="media-body">
 						<h5 className="mt-2 mb-1">
 							{product.title}
-							<span className="ml-1 badge badge-secondary">{product.qty}</span>
+							<span className="ml-1 badge badge-secondary">{product.cartItem.quantity}</span>
 						</h5>
 
 						<p><i>(${product.price})</i></p>

@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-const Cart = require('../models/cart');
 
 exports.getIndex = (req, res) => {
 	Product.findAll()
@@ -102,10 +101,22 @@ exports.postCart = (req, res) => {
 exports.postCartDeleteProduct = (req, res) => {
 	const productId = req.body.productId;
 
-	Product.findById(productId, product => {
-		Cart.delete(productId, product.price);
-		res.redirect('/cart');
-	});
+	req.user.getCart()
+
+		.then(cart => {
+			return cart.getProducts({where: {id: productId}});
+		})
+
+		.then(products => {
+			const product = products[0];
+			return product.cartItem.destroy();
+		})
+
+		.then(() => {
+			res.redirect('/cart');
+		})
+
+		.catch(err => console.error(err));
 };
 
 exports.getOrders = (req, res) => {

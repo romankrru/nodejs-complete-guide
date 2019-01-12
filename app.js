@@ -60,6 +60,8 @@ sequelize
 		return user;
 	})
 
+	.then(user => user.createCart())
+
 	.then(() => {
 		app.listen(3000);
 		console.log('Started on http://localhost:3000');

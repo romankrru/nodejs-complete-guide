@@ -44,7 +44,7 @@ exports.postDeleteProduct = (req, res) => Product.findByPk(req.body.productId)
 	.then(() => res.redirect('/admin/products'))
 	.catch(err => console.error(err));
 
-exports.getProducts = (req, res) => Product.findAll()
+exports.getProducts = (req, res) => req.user.getProducts()
 
 	.then(products => res.render('admin/products', {
 		pageTitle: 'Admin Products',

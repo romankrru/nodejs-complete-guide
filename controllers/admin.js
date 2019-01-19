@@ -37,8 +37,7 @@ exports.postEditProduct = (req, res) => new Product({
 	.then(() => res.redirect('/admin/products'))
 	.catch(err => console.error(err));
 
-exports.postDeleteProduct = (req, res) => Product.findByPk(req.body.productId)
-	.then(product =>  product.destroy())
+exports.postDeleteProduct = (req, res) => Product.deleteById(req.body.productId)
 	.then(() => res.redirect('/admin/products'))
 	.catch(err => console.error(err));
 

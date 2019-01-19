@@ -24,11 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
 	// NOTE: create user by hand before starting the app
-
 	User.findById('5c431434b34688310bfb21d6')
 
 		.then(user => {
-			req.user = user;
+			req.user = new User(user);
 			next();
 		})
 

@@ -18,7 +18,7 @@ const ProductDetails = props => <DefaultLayout
 			<h3>${props.product.price}</h3>
 			<p>{props.product.description}</p>
 
-			<AddToCart productId={props.product.id} />
+			<AddToCart productId={props.product._id} />
 		</div>
 	</div>
 </DefaultLayout>;

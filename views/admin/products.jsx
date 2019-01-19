@@ -21,13 +21,13 @@ const AdminProducts = props => {
 
 							<form action="/admin/delete-product" method="POST">
 								<a
-									href={`/admin/edit-product/${product.id}`}
+									href={`/admin/edit-product/${product._id}`}
 									className="btn btn-primary mr-3"
 								>
 									Edit
 								</a>
 
-								<input type="hidden" value={product.id} name="productId" />
+								<input type="hidden" value={product._id} name="productId" />
 								<button type="submit" className="btn btn-danger">Delete</button>
 							</form>
 						</div>

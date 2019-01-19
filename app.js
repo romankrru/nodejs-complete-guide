@@ -29,6 +29,7 @@ mongoConnect()
 
 	.then(() => {
 		const port = process.env.PORT;
+
 		app.listen(port, () => console.log(`Started on http://localhost:${port}`));
 	})
 

@@ -44,12 +44,12 @@ exports.getAddProduct = (req, res) => res.render('admin/add-product', {
 // 	.then(() => res.redirect('/admin/products'))
 // 	.catch(err => console.error(err));
 
-// exports.getProducts = (req, res) => req.user.getProducts()
+exports.getProducts = (req, res) => Product.fetchAll()
 
-// 	.then(products => res.render('admin/products', {
-// 		pageTitle: 'Admin Products',
-// 		path: '/admin/products',
-// 		prods: products,
-// 	}))
+	.then(products => res.render('admin/products', {
+		pageTitle: 'Admin Products',
+		path: '/admin/products',
+		prods: products,
+	}))
 
-// 	.catch(err => console.error(err));
+	.catch(err => console.error(err));

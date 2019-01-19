@@ -8,14 +8,24 @@ class Product {
 		price,
 		description,
 		imageUrl,
+		_id,
 	}) {
 		this.title = title;
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
+		this._id = new mongodb.ObjectID(_id);
 	}
 
 	save() {
+		if (this._id)
+			// update the product
+			return getDb().collection('products').updateOne(
+				{_id: this._id},
+				{$set: this}
+			);
+
+		// add new
 		return getDb().collection('products').insertOne(this);
 	}
 

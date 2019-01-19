@@ -9,12 +9,14 @@ class Product {
 		description,
 		imageUrl,
 		_id,
+		userId,
 	}) {
 		this.title = title;
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
 		this._id = _id ? new ObjectID(_id) : null;
+		this.userId = userId;
 	}
 
 	save() {

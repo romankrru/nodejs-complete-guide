@@ -22,10 +22,6 @@ app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminRoutes);
-app.use(shopRoutes);
-app.use(errorController.get404);
-
 app.use((req, res, next) => {
 	// NOTE: create user by hand before starting the app
 
@@ -33,14 +29,17 @@ app.use((req, res, next) => {
 
 		.then(user => {
 			req.user = user;
+			next();
 		})
 
 		.catch(err => {
 			console.error(err);
 		});
-
-	next();
 });
+
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+app.use(errorController.get404);
 
 mongoConnect()
 

@@ -4,12 +4,12 @@ const {getDb} = require('../util/database');
 
 class User {
 	constructor({
-		username,
+		name,
 		email,
 		cart,
 		_id,
 	}) {
-		this.name = username;
+		this.name = name;
 		this.email = email;
 		this.cart = cart; // {items: []}
 		this._id = _id;
@@ -76,8 +76,21 @@ class User {
 	}
 
 	addOrder() {
-		return getDb().collection('orders')
-			.insertOne(this.cart)
+		return this.getCart()
+
+			.then(products => {
+				const order = {
+					items: products,
+
+					user: {
+						_id: new ObjectId(this._id),
+						email: this.email,
+						name: this.name,
+					},
+				};
+
+				return getDb().collection('orders').insertOne(order);
+			})
 
 			.then(() => {
 				this.cart = {items: []};
@@ -88,6 +101,10 @@ class User {
 					},
 				});
 			});
+	}
+
+	getOrders() {
+		return getDb().collection('orders').find({'user._id': new ObjectId(this._id)}).toArray();
 	}
 
 	static findById(userId) {

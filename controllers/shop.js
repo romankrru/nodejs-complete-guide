@@ -87,11 +87,16 @@ exports.postOrder = (req, res) => {
 };
 
 exports.getOrders = (req, res) => {
-	res.render('shop/orders', {
-		pageTitle: 'Your Orders',
-		path: '/orders',
-		// prods: data,
-	});
+	req.user
+		.getOrders()
+
+		.then(orders => {
+			res.render('shop/orders', {
+				orders: orders,
+				pageTitle: 'Your Orders',
+				path: '/orders',
+			});
+		});
 };
 
 exports.getCheckout = (req, res) => {

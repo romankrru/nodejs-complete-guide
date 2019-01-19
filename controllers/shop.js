@@ -29,7 +29,7 @@ exports.getProducts = (req, res) => {
 };
 
 exports.getProduct = (req, res) => {
-	Product.findByPk(req.params.productId)
+	Product.findById(req.params.productId)
 
 		.then(product => {
 			res.render('shop/product-detail', {

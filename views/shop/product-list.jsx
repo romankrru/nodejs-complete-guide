@@ -20,7 +20,7 @@ const ProductList = props => {
 							<h5 className="card-title">{product.title}</h5>
 							<p className="card-text">{product.description}</p>
 							<p className="card-text">${product.price}</p>
-							<a href={`/products/${product.id}`}>Details</a>
+							<a href={`/products/${product._id}`}>Details</a>
 							<AddToCart productId={product.id} />
 						</div>
 					</div>

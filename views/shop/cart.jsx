@@ -36,6 +36,12 @@ const Cart = props => {
 			<h5>
 				Total Price: <b>${props.totalPrice}</b>
 			</h5>
+
+			<hr/>
+
+			<form action="/create-order" method="POST">
+				<button className="btn btn-primary">Order now!</button>
+			</form>
 		</React.Fragment>
 	}
 

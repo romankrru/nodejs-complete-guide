@@ -14,7 +14,7 @@ class Product {
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
-		this._id = new ObjectID(_id);
+		this._id = _id ? new ObjectID(_id) : null;
 	}
 
 	save() {

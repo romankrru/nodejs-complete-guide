@@ -3,10 +3,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
 
-// const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 // const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database');
+const {mongoConnect} = require('./util/database');
 
 if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').load();
@@ -21,13 +21,13 @@ app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 // app.use(shopRoutes);
 app.use(errorController.get404);
 
 mongoConnect()
 
-	.then(client => {
+	.then(() => {
 		const port = process.env.PORT;
 		app.listen(port, () => console.log(`Started on http://localhost:${port}`));
 	})

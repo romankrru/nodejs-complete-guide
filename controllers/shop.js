@@ -79,13 +79,18 @@ exports.postCartDeleteProduct = (req, res) => {
 		.catch(err => console.error(err));
 };
 
+exports.postOrder = (req, res) => {
+	req.user
+		.addOrder()
+		.then(() => res.redirect('/orders'))
+		.catch(console.error);
+};
+
 exports.getOrders = (req, res) => {
-	Product.fetchAll(data => {
-		res.render('shop/orders', {
-			pageTitle: 'Your Orders',
-			path: '/orders',
-			prods: data,
-		});
+	res.render('shop/orders', {
+		pageTitle: 'Your Orders',
+		path: '/orders',
+		// prods: data,
 	});
 };
 

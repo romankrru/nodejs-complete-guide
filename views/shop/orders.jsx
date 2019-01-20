@@ -12,7 +12,7 @@ const Orders = props => <DefaultLayout
 	<hr/>
 
 	{_.map(props.orders, order => <React.Fragment key={order._id.toString()}>
-		<h5>Order {order._id.toString()}:</h5>
+		<h5>Order - #{order._id.toString()}:</h5>
 
 		<table key={order._id} className="table table-bordered">
 			<thead>
@@ -25,11 +25,11 @@ const Orders = props => <DefaultLayout
 			</thead>
 
 			<tbody>
-				{_.map(order.items, (item, j) => <tr>
+				{_.map(order.products, (productItem, j) => <tr>
 					<td>{j}</td>
-					<td>{item.title}</td>
-					<td>${item.price}</td>
-					<td>x{item.quantity}</td>
+					<td>{productItem.product.title}</td>
+					<td>${productItem.product.price}</td>
+					<td>x{productItem.quantity}</td>
 				</tr>)}
 			</tbody>
 		</table>

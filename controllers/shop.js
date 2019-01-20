@@ -114,8 +114,7 @@ exports.postOrder = (req, res) => {
 };
 
 exports.getOrders = (req, res) => {
-	req.user
-		.getOrders()
+	Order.find({'user.userId': req.user._id})
 
 		.then(orders => {
 			res.render('shop/orders', {
@@ -123,7 +122,9 @@ exports.getOrders = (req, res) => {
 				pageTitle: 'Your Orders',
 				path: '/orders',
 			});
-		});
+		})
+
+		.catch(console.error);
 };
 
 exports.getCheckout = (req, res) => {

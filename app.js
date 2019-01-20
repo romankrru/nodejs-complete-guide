@@ -4,11 +4,11 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
-// const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 // const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
 // const {mongoConnect} = require('./util/database');
-const User = require('./models/user');
+// const User = require('./models/user');
 
 if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').load();
@@ -23,21 +23,21 @@ app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-	// NOTE: create user by hand before starting the app
-	User.findById('5c431434b34688310bfb21d6')
+// app.use((req, res, next) => {
+// 	// NOTE: create user by hand before starting the app
+// 	User.findById('5c431434b34688310bfb21d6')
 
-		.then(user => {
-			req.user = new User(user);
-			next();
-		})
+// 		.then(user => {
+// 			req.user = new User(user);
+// 			next();
+// 		})
 
-		.catch(err => {
-			console.error(err);
-		});
-});
+// 		.catch(err => {
+// 			console.error(err);
+// 		});
+// });
 
-// app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 // app.use(shopRoutes);
 app.use(errorController.get404);
 

@@ -26,23 +26,27 @@ exports.getEditProduct = (req, res) => Product.findById(req.params.productId)
 
 	.catch(err => console.error(err));
 
-exports.postEditProduct = (req, res) => new Product({
-	_id: req.params.productId,
-	description: req.body.description,
-	imageUrl: req.body.imageUrl,
-	price: req.body.price,
-	title: req.body.title,
-})
+exports.postEditProduct = (req, res) => {
+	Product.findById(req.params.productId)
 
-	.save()
-	.then(() => res.redirect('/admin/products'))
-	.catch(err => console.error(err));
+		.then(product => {
+			product.description = req.body.description;
+			product.imageUrl = req.body.imageUrl;
+			product.price = req.body.price;
+			product.title = req.body.title;
+
+			return product.save();
+		})
+
+		.then(() => res.redirect('/admin/products'))
+		.catch(err => console.error(err));
+};
 
 exports.postDeleteProduct = (req, res) => Product.deleteById(req.body.productId)
 	.then(() => res.redirect('/admin/products'))
 	.catch(err => console.error(err));
 
-exports.getProducts = (req, res) => Product.fetchAll()
+exports.getProducts = (req, res) => Product.find()
 
 	.then(products => res.render('admin/products', {
 		pageTitle: 'Admin Products',

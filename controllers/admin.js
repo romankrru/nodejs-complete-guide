@@ -42,7 +42,7 @@ exports.postEditProduct = (req, res) => {
 		.catch(err => console.error(err));
 };
 
-exports.postDeleteProduct = (req, res) => Product.deleteById(req.body.productId)
+exports.postDeleteProduct = (req, res) => Product.findByIdAndRemove(req.body.productId)
 	.then(() => res.redirect('/admin/products'))
 	.catch(err => console.error(err));
 

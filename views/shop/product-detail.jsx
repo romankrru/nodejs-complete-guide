@@ -4,6 +4,7 @@ const DefaultLayout = require('../layouts/default');
 const AddToCart = require('../common/AddToCart');
 
 const ProductDetails = props => <DefaultLayout
+	isLoggedIn={props.isLoggedIn}
 	path={props.path}
 	pageTitle={props.pageTitle}
 >

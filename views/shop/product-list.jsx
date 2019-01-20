@@ -32,6 +32,7 @@ const ProductList = props => {
 
 
 	return <DefaultLayout
+		isLoggedIn={props.isLoggedIn}
 		path={props.path}
 		pageTitle={props.pageTitle}
 	>

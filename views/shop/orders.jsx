@@ -4,6 +4,7 @@ const _ = require('lodash');
 const DefaultLayout = require('../layouts/default');
 
 const Orders = props => <DefaultLayout
+	isLoggedIn={props.isLoggedIn}
 	path={props.path}
 	pageTitle={props.pageTitle}
 >

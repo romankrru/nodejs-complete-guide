@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -22,6 +23,12 @@ app.set('views', __dirname + '/views');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+	resave: false,
+	saveUninitialized: false,
+	secret: process.env.SESSION_SECRET,
+}));
 
 app.use((req, res, next) => {
 	// NOTE: create user by hand before starting the app

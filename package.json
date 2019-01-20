@@ -27,6 +27,7 @@
     "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.4",
     "express-react-views": "^0.11.0",
+    "express-session": "^1.15.6",
     "lodash": "^4.17.11",
     "mongodb": "^3.1.12",
     "mongoose": "^5.4.5",

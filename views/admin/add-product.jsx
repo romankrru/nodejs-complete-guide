@@ -4,6 +4,7 @@ const DefaultLayout = require('../layouts/default');
 const ProductForm = require('./ProductForm');
 
 const AddProduct = props => <DefaultLayout
+	isLoggedIn={props.isLoggedIn}
 	path={props.path}
 	pageTitle={props.pageTitle}
 >

@@ -21,7 +21,7 @@ const ProductList = props => {
 							<p className="card-text">{product.description}</p>
 							<p className="card-text">${product.price}</p>
 							<a href={`/products/${product._id}`}>Details</a>
-							<AddToCart productId={product._id} />
+							{props.isLoggedIn && <AddToCart productId={product._id} />}
 						</div>
 					</div>
 				</div>)}

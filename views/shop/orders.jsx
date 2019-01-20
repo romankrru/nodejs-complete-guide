@@ -25,7 +25,7 @@ const Orders = props => <DefaultLayout
 			</thead>
 
 			<tbody>
-				{_.map(order.products, (productItem, j) => <tr>
+				{_.map(order.products, (productItem, j) => <tr key={j}>
 					<td>{j}</td>
 					<td>{productItem.product.title}</td>
 					<td>${productItem.product.price}</td>

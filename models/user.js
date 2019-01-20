@@ -56,14 +56,11 @@ userSchema.methods.addToCart = function(product) {
 };
 
 userSchema.methods.removeFromCart = function(productId) {
-	const log = a => (console.log(a), a);
-
 	this.cart.items = fp.reject(
 		fp.flow(
 			fp.get('productId'),
 			fp.concat(productId),
 			fp.map(String),
-			log,
 			fp.apply(fp.eq),
 		),
 

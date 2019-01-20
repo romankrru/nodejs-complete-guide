@@ -2,11 +2,12 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const mongoose = require('mongoose');
 
-const adminRoutes = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
+// const adminRoutes = require('./routes/admin');
+// const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
-const {mongoConnect} = require('./util/database');
+// const {mongoConnect} = require('./util/database');
 const User = require('./models/user');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -36,11 +37,12 @@ app.use((req, res, next) => {
 		});
 });
 
-app.use('/admin', adminRoutes);
-app.use(shopRoutes);
+// app.use('/admin', adminRoutes);
+// app.use(shopRoutes);
 app.use(errorController.get404);
 
-mongoConnect()
+mongoose
+	.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-22nab.mongodb.net/test?retryWrites=true`)
 
 	.then(() => {
 		const port = process.env.PORT;

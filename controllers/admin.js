@@ -5,8 +5,9 @@ exports.postAddProduct = (req, res) => new Product({
 	imageUrl: req.body.imageUrl,
 	price: req.body.price,
 	title: req.body.title,
-	// userId: req.user._id,
+	userId: req.user._id,
 })
+
 	.save()
 	.then(() => res.redirect('/'))
 	.catch(err => console.error(err));

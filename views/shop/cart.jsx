@@ -24,7 +24,7 @@ const Cart = props => {
 
 					<div>
 						<form action="/cart-delete-product" method="POST">
-							<input type="hidden" value={product._id} name="productId"/>
+							<input type="hidden" value={product.productId._id} name="productId"/>
 							<button className="btn btn-danger mt-2 mr-2">Delete</button>
 						</form>
 					</div>

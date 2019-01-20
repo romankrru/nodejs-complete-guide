@@ -30,16 +30,11 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.addToCart = function(product) {
-	const idx = fp.findIndex(
-		fp.flow(
-			fp.get('productId'),
-			fp.concat(product._id),
-			fp.map(String),
-			fp.apply(fp.eq),
-		),
-
-		this.cart.items,
-	);
+	const idx = this.cart.items
+		|> fp.findIndex(cartItem => [cartItem.productId, product._id]
+			|> fp.map(fp.toString)
+			|> fp.apply(fp.eq)
+		);
 
 	if (idx > -1) {
 		// update qty
@@ -56,16 +51,11 @@ userSchema.methods.addToCart = function(product) {
 };
 
 userSchema.methods.removeFromCart = function(productId) {
-	this.cart.items = fp.reject(
-		fp.flow(
-			fp.get('productId'),
-			fp.concat(productId),
-			fp.map(String),
-			fp.apply(fp.eq),
-		),
-
-		this.cart.items,
-	);
+	this.cart.items = this.cart.items
+		|> fp.reject(cartItem => [cartItem.productId, productId]
+			|> fp.map(fp.toString)
+			|> fp.apply(fp.eq)
+		);
 
 	return this.save();
 };

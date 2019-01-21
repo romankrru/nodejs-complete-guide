@@ -1,5 +1,6 @@
 const path = require('path');
 
+const {_, it} = require('param.macro');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -20,26 +21,37 @@ const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO
 
 const app = express();
 
-const store = new MongoDBStore({
+// Setup sessions
+new MongoDBStore({
 	collection: 'sessions',
 	uri: MONGODB_URI,
-});
+})
 
-app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine());
-app.set('views', __dirname + '/views');
-
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(
-	session({
+	|> session({
 		resave: false,
 		saveUninitialized: false,
 		secret: process.env.SESSION_SECRET,
-		store: store,
-	}),
-);
+		store: _,
+	})
+
+	|> app.use;
+
+// Setup template engine
+app.set('view engine', 'jsx');
+
+require('express-react-views')
+	|> it.createEngine()
+	|> app.engine('jsx', _);
+
+path.join(__dirname, '/views') |> app.set('views', _);
+
+// Setup body parser
+app.use(bodyParser.urlencoded({extended: false}));
+
+// Setup static server
+path.join(__dirname, 'public')
+	|> express.static
+	|> app.use;
 
 app.use((req, res, next) => {
 	if (!req.session.user)
@@ -72,7 +84,7 @@ mongoose
 				name: 'Roman',
 			});
 
-			user.save();
+			return user.save();
 		}
 	})
 
@@ -81,4 +93,4 @@ mongoose
 		app.listen(port, () => console.log(`Started on http://localhost:${port}`));
 	})
 
-	.catch(err => console.error(err));
+	.catch(console.error);

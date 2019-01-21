@@ -1,3 +1,4 @@
+const {it} = require('param.macro');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const fp = require('lodash/fp');
@@ -31,9 +32,10 @@ const userSchema = new Schema({
 
 userSchema.methods.addToCart = function(product) {
 	const idx = this.cart.items
-		|> fp.findIndex(cartItem => [cartItem.productId, product._id]
-			|> fp.map(fp.toString)
-			|> fp.apply(fp.eq)
+		|> fp.findIndex(
+			[it.productId, product._id]
+				|> fp.map(fp.toString)
+				|> fp.apply(fp.eq)
 		);
 
 	if (idx > -1) {
@@ -52,9 +54,10 @@ userSchema.methods.addToCart = function(product) {
 
 userSchema.methods.removeFromCart = function(productId) {
 	this.cart.items = this.cart.items
-		|> fp.reject(cartItem => [cartItem.productId, productId]
-			|> fp.map(fp.toString)
-			|> fp.apply(fp.eq)
+		|> fp.reject(
+			[it.productId, productId]
+				|> fp.map(fp.toString)
+				|> fp.apply(fp.eq)
 		);
 
 	return this.save();

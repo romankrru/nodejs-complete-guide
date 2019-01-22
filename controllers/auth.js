@@ -8,6 +8,14 @@ exports.getLogin = (req, res) => {
 	});
 };
 
+exports.getSignup = (req, res) => {
+	res.render('auth/signup', {
+		isLoggedIn: req.session.isLoggedIn,
+		pageTitle: 'Signup',
+		path: '/signup',
+	});
+};
+
 exports.postLogin = (req, res) => {
 	// NOTE: create user by hand before starting the app
 	User.findById('5c444332351d0a2da7422c8b')
@@ -28,6 +36,8 @@ exports.postLogin = (req, res) => {
 			console.error(err);
 		});
 };
+
+exports.postSignup = (req, res) => res.redirect('/');
 
 exports.postLogout = (req, res) => {
 	req.session.destroy(err => {

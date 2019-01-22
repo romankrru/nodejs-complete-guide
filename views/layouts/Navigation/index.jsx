@@ -23,8 +23,10 @@ const Navigation = props => <header className="main-header">
 					<button className="btn nav-item nav-link">Logout</button>
 				</form>
 
-				: <NavLink href="/login" active={props.path === '/login'}>Login</NavLink>}
-
+				: <React.Fragment>
+					<NavLink href="/login" active={props.path === '/login'}>Login</NavLink>
+					<NavLink href="/signup" active={props.path === '/signup'}>Signup</NavLink>
+				</React.Fragment>}
 		</div>
 	</nav>
 </header>;

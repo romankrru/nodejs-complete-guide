@@ -74,19 +74,6 @@ app.use(errorController.get404);
 
 mongoose
 	.connect(MONGODB_URI, {useNewUrlParser: true})
-	.then(() => User.findOne())
-
-	.then(user => {
-		if (!user) {
-			const user = new User({
-				cart: {items: []},
-				email: 'test@test.com',
-				name: 'Roman',
-			});
-
-			return user.save();
-		}
-	})
 
 	.then(() => {
 		const port = process.env.PORT;

@@ -37,7 +37,29 @@ exports.postLogin = (req, res) => {
 		});
 };
 
-exports.postSignup = (req, res) => res.redirect('/');
+exports.postSignup = (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	// const confirmPassword = req.body.confirmPassword;
+
+	User.findOne({email: email})
+
+		.then(userDoc => {
+			if(userDoc)
+				return res.redirect('/signup');
+
+			const user = new User({
+				cart: {items: []},
+				email: email,
+				password: password,
+			});
+
+			return user.save();
+		})
+
+		.then(() => res.redirect('/login'))
+		.catch(console.error);
+};
 
 exports.postLogout = (req, res) => {
 	req.session.destroy(err => {

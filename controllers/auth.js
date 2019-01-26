@@ -49,17 +49,16 @@ exports.postSignup = (req, res) => {
 			if(userDoc)
 				return res.redirect('/signup');
 
-			return bcrypt.hash(password, 12);
-		})
+			return bcrypt.hash(password, 12)
+				.then(hashedPassword => {
+					const user = new User({
+						cart: {items: []},
+						email: email,
+						password: hashedPassword,
+					});
 
-		.then(hashedPassword => {
-			const user = new User({
-				cart: {items: []},
-				email: email,
-				password: hashedPassword,
-			});
-
-			return user.save();
+					return user.save();
+				});
 		})
 
 		.then(() => res.redirect('/login'))

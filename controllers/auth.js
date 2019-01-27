@@ -18,24 +18,37 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postLogin = (req, res) => {
-	// NOTE: create user by hand before starting the app
-	User.findById('5c444332351d0a2da7422c8b')
+	User.findOne({email: req.body.email})
 
 		.then(user => {
-			req.session.isLoggedIn = true;
-			req.session.user = user;
+			if(!user)
+				return res.redirect('/login');
 
-			req.session.save(err => {
-				if (err)
+			bcrypt.compare(req.body.password, user.password)
+
+				.then(isMatch => {
+					if(isMatch) {
+						req.session.isLoggedIn = true;
+						req.session.user = user;
+
+						return req.session.save(err => {
+							if (err)
+								console.error(err);
+
+							res.redirect('/');
+						});
+					}
+
+					res.redirect('/login');
+				})
+
+				.catch(err => {
 					console.error(err);
-
-				res.redirect('/');
-			});
+					res.redirect('/login');
+				});
 		})
 
-		.catch(err => {
-			console.error(err);
-		});
+		.catch(console.error);
 };
 
 exports.postSignup = (req, res) => {

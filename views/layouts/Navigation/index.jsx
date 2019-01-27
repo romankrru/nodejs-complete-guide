@@ -2,9 +2,10 @@ const React = require('react');
 const {LocalsContext} = require('express-react-static-markup');
 
 const NavLink = require('./NavLink');
+const CSRFInput = require('../../common/CSRFInput');
 
 const Navigation = props => <LocalsContext>
-	{({isLoggedIn, csrfToken}) => <header className="main-header">
+	{({isLoggedIn}) => <header className="main-header">
 		<nav className="navbar navbar-expand navbar-dark bg-dark">
 			<a className="navbar-brand" href="/">Shop</a>
 
@@ -22,7 +23,7 @@ const Navigation = props => <LocalsContext>
 
 				{isLoggedIn
 					? <form method="POST" action="/logout">
-						<input type="hidden" name="_csrf" value={csrfToken}/>
+						<CSRFInput />
 						<button className="btn nav-item nav-link">Logout</button>
 					</form>
 

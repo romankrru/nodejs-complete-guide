@@ -12,11 +12,16 @@ exports.postAddProduct = (req, res) => new Product({
 	.then(() => res.redirect('/'))
 	.catch(err => console.error(err));
 
-exports.getAddProduct = (req, res) => res.render('admin/add-product', {
-	isLoggedIn: req.session.isLoggedIn,
-	pageTitle: 'Add product',
-	path: '/admin/add-product',
-});
+exports.getAddProduct = (req, res) => {
+	if(!req.user.isLoggedIn)
+		return res.redirect('/login');
+
+	res.render('admin/add-product', {
+		isLoggedIn: req.session.isLoggedIn,
+		pageTitle: 'Add product',
+		path: '/admin/add-product',
+	});
+};
 
 exports.getEditProduct = (req, res) => Product.findById(req.params.productId)
 

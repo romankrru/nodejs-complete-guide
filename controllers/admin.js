@@ -13,7 +13,6 @@ exports.postAddProduct = (req, res) => new Product({
 	.catch(err => console.error(err));
 
 exports.getAddProduct = (req, res) => res.render('admin/add-product', {
-	isLoggedIn: req.session.isLoggedIn,
 	pageTitle: 'Add product',
 	path: '/admin/add-product',
 });
@@ -21,7 +20,6 @@ exports.getAddProduct = (req, res) => res.render('admin/add-product', {
 exports.getEditProduct = (req, res) => Product.findById(req.params.productId)
 
 	.then(product => res.render('admin/edit-product', {
-		isLoggedIn: req.session.isLoggedIn,
 		pageTitle: 'Edit product',
 		path: '/admin/products',
 		product: product,
@@ -52,7 +50,6 @@ exports.postDeleteProduct = (req, res) => Product.findByIdAndRemove(req.body.pro
 exports.getProducts = (req, res) => Product.find()
 
 	.then(products => res.render('admin/products', {
-		isLoggedIn: req.session.isLoggedIn,
 		pageTitle: 'Admin Products',
 		path: '/admin/products',
 		prods: products,

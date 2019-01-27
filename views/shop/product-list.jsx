@@ -1,5 +1,6 @@
 const React = require('react');
 const _  = require('lodash');
+const {LocalsContext} = require('express-react-static-markup');
 
 const DefaultLayout = require('../layouts/default');
 const AddToCart = require('../common/AddToCart');
@@ -21,7 +22,10 @@ const ProductList = props => {
 							<p className="card-text">{product.description}</p>
 							<p className="card-text">${product.price}</p>
 							<a href={`/products/${product._id}`}>Details</a>
-							{props.isLoggedIn && <AddToCart productId={product._id} />}
+
+							<LocalsContext>
+								{({isLoggedIn}) => isLoggedIn && <AddToCart productId={product._id} />}
+							</LocalsContext>
 						</div>
 					</div>
 				</div>)}
@@ -32,7 +36,6 @@ const ProductList = props => {
 
 
 	return <DefaultLayout
-		isLoggedIn={props.isLoggedIn}
 		path={props.path}
 		pageTitle={props.pageTitle}
 	>

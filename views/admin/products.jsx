@@ -2,6 +2,7 @@ const React = require('react');
 const _  = require('lodash');
 
 const DefaultLayout = require('../layouts/default');
+const CSRFInput = require('../common/CSRFInput');
 
 const AdminProducts = props => {
 	let content = <h1>No products to display</h1>;
@@ -27,6 +28,7 @@ const AdminProducts = props => {
 									Edit
 								</a>
 
+								<CSRFInput />
 								<input type="hidden" value={product._id} name="productId" />
 								<button type="submit" className="btn btn-danger">Delete</button>
 							</form>
@@ -39,7 +41,6 @@ const AdminProducts = props => {
 
 
 	return <DefaultLayout
-		isLoggedIn={props.isLoggedIn}
 		path={props.path}
 		pageTitle={props.pageTitle}
 	>

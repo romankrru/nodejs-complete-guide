@@ -1,15 +1,17 @@
 const React = require('react');
 
 const DefaultLayout = require('../layouts/default');
+const CSRFInput = require('../common/CSRFInput');
 
 const Login = props => <DefaultLayout
-	isLoggedIn={props.isLoggedIn}
 	path={props.path}
 	pageTitle={props.pageTitle}
 >
 	<h1>Login</h1>
 
 	<form method="POST" action="/login">
+		<CSRFInput />
+
 		<div className="form-group">
 			<label htmlFor="exampleInputEmail1">Email address</label>
 			<input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />

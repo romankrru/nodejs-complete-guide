@@ -1,10 +1,9 @@
 const React = require('react');
 
 const DefaultLayout = require('../layouts/default');
-const ProductForm = require('./ProductForm');
+const ProductForm = require('./ProductForm/index.jsx');
 
 const EditProduct = props => <DefaultLayout
-	isLoggedIn={props.isLoggedIn}
 	path={props.path}
 	pageTitle={props.pageTitle}
 >

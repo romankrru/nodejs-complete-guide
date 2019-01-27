@@ -1,6 +1,10 @@
 const React = require('react');
 
+const CSRFInput = require('../../common/CSRFInput');
+
 const ProductForm = props => <form action={props.action} method="POST">
+	<CSRFInput />
+
 	<div className="form-group">
 		<label htmlFor="title">Book Title</label>
 

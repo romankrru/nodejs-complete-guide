@@ -6,7 +6,6 @@ exports.getIndex = (req, res) => {
 
 		.then(products => {
 			res.render('shop/index', {
-				isLoggedIn: req.session.isLoggedIn,
 				pageTitle: 'Main page',
 				path: '/',
 				prods: products,
@@ -21,7 +20,6 @@ exports.getProducts = (req, res) => {
 
 		.then(products => {
 			res.render('shop/product-list', {
-				isLoggedIn: req.session.isLoggedIn,
 				pageTitle: 'Products',
 				path: '/products',
 				prods: products,
@@ -36,7 +34,6 @@ exports.getProduct = (req, res) => {
 
 		.then(product => {
 			res.render('shop/product-detail', {
-				isLoggedIn: req.session.isLoggedIn,
 				pageTitle: product.title,
 				path: '/products',
 				product: product,
@@ -53,7 +50,6 @@ exports.getCart = (req, res) => {
 
 		.then(user => {
 			res.render('shop/cart', {
-				isLoggedIn: req.session.isLoggedIn,
 				pageTitle: 'Your Cart',
 				path: '/cart',
 				products: user.cart.items,
@@ -122,7 +118,6 @@ exports.getOrders = (req, res) => {
 
 		.then(orders => {
 			res.render('shop/orders', {
-				isLoggedIn: req.session.isLoggedIn,
 				orders: orders,
 				pageTitle: 'Your Orders',
 				path: '/orders',
@@ -135,7 +130,6 @@ exports.getOrders = (req, res) => {
 exports.getCheckout = (req, res) => {
 	Product.fetchAll(data => {
 		res.render('shop/checkout', {
-			isLoggedIn: req.session.isLoggedIn,
 			pageTitle: 'Checkout',
 			path: '/checkout',
 			prods: data,

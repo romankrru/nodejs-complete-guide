@@ -6,6 +6,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -39,14 +40,17 @@ new MongoDBStore({
 // Setup template engine
 app.set('view engine', 'jsx');
 
-require('express-react-views')
+require('express-react-static-markup')
 	|> it.createEngine()
 	|> app.engine('jsx', _);
 
 path.join(__dirname, '/views') |> app.set('views', _);
 
 // Setup body parser
-app.use(bodyParser.urlencoded({extended: false}));
+bodyParser.urlencoded({extended: false}) |> app.use;
+
+// Setup CSRF protection
+csrf() |> app.use;
 
 // Setup static server
 path.join(__dirname, 'public')
@@ -65,6 +69,13 @@ app.use((req, res, next) => {
 		})
 
 		.catch(console.error);
+});
+
+// Add locals for views
+app.use((req, res, next) => {
+	res.locals.isLoggedIn = req.session.isLoggedIn;
+	res.locals.csrfToken = req.csrfToken();
+	next();
 });
 
 app.use('/admin', adminRoutes);

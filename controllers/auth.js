@@ -11,24 +11,29 @@ exports.getLogin = (req, res) => {
 
 exports.getSignup = (req, res) => {
 	res.render('auth/signup', {
+		errorMessage: req.flash('error'),
 		pageTitle: 'Signup',
 		path: '/signup',
 	});
 };
 
 exports.postLogin = (req, res) => {
+	const redirectOnError = () => {
+		req.flash('error', 'Invalid email or password.');
+
+		return req.session.save(err => {
+			if(err)
+				console.error(err);
+
+			return res.redirect('/login');
+		});
+	};
+
 	User.findOne({email: req.body.email})
 
 		.then(user => {
 			if(!user) {
-				req.flash('error', 'Invalid email or password.');
-
-				return req.session.save(err => {
-					if(err)
-						console.error(err);
-
-					return res.redirect('/login');
-				});
+				return redirectOnError();
 			}
 
 			bcrypt.compare(req.body.password, user.password)
@@ -46,7 +51,7 @@ exports.postLogin = (req, res) => {
 						});
 					}
 
-					res.redirect('/login');
+					return redirectOnError();
 				})
 
 				.catch(err => {
@@ -66,8 +71,16 @@ exports.postSignup = (req, res) => {
 	User.findOne({email: email})
 
 		.then(userDoc => {
-			if(userDoc)
-				return res.redirect('/signup');
+			if(userDoc) {
+				req.flash('error', 'Email exists already, please pick a different one.');
+
+				req.session.save(err => {
+					if(err)
+						return console.error(err);
+
+					return res.redirect('/signup');
+				});
+			}
 
 			return bcrypt.hash(password, 12)
 				.then(hashedPassword => {

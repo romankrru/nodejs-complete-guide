@@ -12,6 +12,10 @@ const Signup = props => <DefaultLayout
 	<form method="POST" action="/signup">
 		<CSRFInput />
 
+		{Boolean(props.errorMessage.length) && <div className="alert alert-danger" role="alert">
+			{props.errorMessage}
+		</div>}
+
 		<div className="form-group">
 			<label htmlFor="exampleInputEmail1">Email address</label>
 			<input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />

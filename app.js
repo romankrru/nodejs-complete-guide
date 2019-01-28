@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
+const flash = require('connect-flash');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -51,6 +52,8 @@ bodyParser.urlencoded({extended: false}) |> app.use;
 
 // Setup CSRF protection
 csrf() |> app.use;
+
+flash() |> app.use;
 
 // Setup static server
 path.join(__dirname, 'public')

@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+	require('dotenv').load();
+}
+
 const path = require('path');
 
 const {_, it} = require('param.macro');
@@ -14,10 +18,6 @@ const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
-
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').load();
-}
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-22nab.mongodb.net/test?retryWrites=true`;
 

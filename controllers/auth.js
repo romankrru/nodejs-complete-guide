@@ -23,6 +23,14 @@ exports.getSignup = (req, res) => {
 	});
 };
 
+exports.getReset = (req, res) => {
+	res.render('auth/reset', {
+		errorMessage: req.flash('error'),
+		pageTitle: 'Reset Password',
+		path: '/reset',
+	});
+};
+
 exports.postLogin = (req, res) => {
 	const redirectOnError = () => {
 		req.flash('error', 'Invalid email or password.');

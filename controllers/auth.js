@@ -33,6 +33,23 @@ exports.getReset = (req, res) => {
 	});
 };
 
+exports.getNewPassword = (req, res) => {
+	const token = req.params.token;
+
+	User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+
+		.then(user => {
+			res.render('auth/new-password', {
+				errorMessage: req.flash('error'),
+				pageTitle: 'New password',
+				path: '/new-password',
+				userId: user._id.toString(),
+			});
+		})
+
+		.catch(console.error);
+};
+
 exports.postLogin = (req, res) => {
 	const redirectOnError = () => {
 		req.flash('error', 'Invalid email or password.');

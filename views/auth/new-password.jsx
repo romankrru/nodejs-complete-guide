@@ -22,6 +22,7 @@ const NewPassword = props => <DefaultLayout
 		</div>
 
 		<input type="hidden" value={props.userId} name="userId" />
+		<input type="hidden" value={props.passwordToken} name="passwordToken" />
 
 		<button type="submit" className="btn btn-primary">Update password</button>
 	</form>

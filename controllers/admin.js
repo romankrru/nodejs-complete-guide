@@ -31,19 +31,21 @@ exports.postEditProduct = (req, res) => {
 	Product.findById(req.params.productId)
 
 		.then(product => {
+			if (product.userId.toString() !== req.user._id.toString())
+				return res.redirect('/');
+
 			product.description = req.body.description;
 			product.imageUrl = req.body.imageUrl;
 			product.price = req.body.price;
 			product.title = req.body.title;
 
-			return product.save();
+			return product.save().then(() => res.redirect('/admin/products'));
 		})
 
-		.then(() => res.redirect('/admin/products'))
 		.catch(err => console.error(err));
 };
 
-exports.postDeleteProduct = (req, res) => Product.findByIdAndRemove(req.body.productId)
+exports.postDeleteProduct = (req, res) => Product.deleteOne({_id: req.body.productId, userId: req.user._id})
 	.then(() => res.redirect('/admin/products'))
 	.catch(err => console.error(err));
 

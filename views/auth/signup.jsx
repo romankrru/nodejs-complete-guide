@@ -9,7 +9,7 @@ const Signup = props => <DefaultLayout
 >
 	<h1>Signup</h1>
 
-	<form method="POST" action="/signup">
+	<form method="POST" action="/signup" noValidate>
 		<CSRFInput />
 
 		{Boolean(props.errorMessage.length) && <div className="alert alert-danger" role="alert">

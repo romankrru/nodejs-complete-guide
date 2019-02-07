@@ -104,11 +104,10 @@ exports.postSignup = (req, res) => {
 	// const confirmPassword = req.body.confirmPassword;
 
 	const errors = validationResult(req);
-	console.log(errors.array())
 
 	if(!errors.isEmpty()) {
 		return res.status(422).render('auth/signup', {
-			errorMessage: errors.array(),
+			errorMessage: errors.array()[0].msg,
 			pageTitle: 'Signup',
 			path: '/signup',
 		});

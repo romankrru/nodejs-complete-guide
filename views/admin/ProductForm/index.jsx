@@ -5,6 +5,10 @@ const CSRFInput = require('../../common/CSRFInput');
 const ProductForm = props => <form action={props.action} method="POST">
 	<CSRFInput />
 
+	{Boolean(props.hasError) && <div className="alert alert-danger" role="alert">
+		{props.errorMessage}
+	</div>}
+
 	<div className="form-group">
 		<label htmlFor="title">Book Title</label>
 

@@ -12,6 +12,8 @@ const EditProduct = props => <DefaultLayout
 		<hr/>
 
 		<ProductForm
+			errorMessage={props.errorMessage}
+			hasError={props.hasError}
 			action={`/admin/edit-product/${props.product._id}`}
 			buttonTitle="Update product"
 			data={props.product}

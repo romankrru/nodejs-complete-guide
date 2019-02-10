@@ -12,8 +12,11 @@ const AddProduct = props => <DefaultLayout
 		<hr/>
 
 		<ProductForm
+			errorMessage={props.errorMessage}
+			hasError={props.hasError}
 			action="/admin/add-product"
 			buttonTitle="Add product"
+			data={props.product || {}}
 		/>
 	</main>
 </DefaultLayout>;

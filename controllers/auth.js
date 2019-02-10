@@ -119,6 +119,10 @@ exports.postSignup = (req, res) => {
 		return res.status(422).render('auth/signup', {
 			errorMessage: errors.array()[0].msg,
 
+			invalidFields: errors
+				|> it.array()
+				|> fp.map(it.param),
+
 			oldInput: {
 				confirmPassword: req.body.confirmPassword,
 				email: email,

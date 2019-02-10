@@ -1,10 +1,15 @@
 const React = require('react');
+const cx = require('classnames');
+const fp = require('lodash/fp');
+const {_} = require('param.macro');
 
 const DefaultLayout = require('../layouts/default');
 const CSRFInput = require('../common/CSRFInput');
 
 const Signup = props => {
 	const oldInput = props.oldInput || {};
+	const invalidFields = props.invalidFields || [];
+	const isInvalid = fp.includes(_, invalidFields);
 
 	return <DefaultLayout
 		path={props.path}
@@ -26,7 +31,11 @@ const Signup = props => {
 					defaultValue={oldInput.email}
 					name="email"
 					type="email"
-					className="form-control"
+
+					className={cx('form-control', {
+						'is-invalid': isInvalid('email'),
+					})}
+
 					id="exampleInputEmail1"
 					aria-describedby="emailHelp"
 					placeholder="Enter email"
@@ -42,7 +51,11 @@ const Signup = props => {
 					defaultValue={oldInput.password}
 					name="password"
 					type="password"
-					className="form-control"
+
+					className={cx('form-control', {
+						'is-invalid': isInvalid('password'),
+					})}
+
 					id="exampleInputPassword1"
 					placeholder="Password"
 				/>
@@ -55,7 +68,11 @@ const Signup = props => {
 					defaultValue={oldInput.confirmPassword}
 					name="confirmPassword"
 					type="password"
-					className="form-control"
+
+					className={cx('form-control', {
+						'is-invalid': isInvalid('confirmPassword'),
+					})}
+
 					id="exampleInputPassword2"
 					placeholder="Confirm Password"
 				/>

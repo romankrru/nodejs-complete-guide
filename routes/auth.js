@@ -7,7 +7,21 @@ const User = require('../models/user');
 const router = express.Router();
 
 router.get('/login', authController.getLogin);
-router.post('/login', authController.postLogin);
+
+router.post(
+	'/login',
+
+	[
+		body('email', 'Please enter a valid email.').isEmail(),
+
+		body('password', 'Please enter a password with only numbers and text and at least 3 characters.')
+			.isLength({min: 3})
+			.isAlphanumeric(),
+	],
+
+	authController.postLogin
+);
+
 router.post('/logout', authController.postLogout);
 router.get('/signup', authController.getSignup);
 

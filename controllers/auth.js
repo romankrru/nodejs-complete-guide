@@ -53,6 +53,15 @@ exports.getNewPassword = (req, res) => {
 };
 
 exports.postLogin = (req, res) => {
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty())
+		return res.status(422).render('auth/login', {
+			errorMessage: errors.array()[0].msg,
+			pageTitle: 'Login',
+			path: '/login',
+		});
+
 	const redirectOnError = () => {
 		req.flash('error', 'Invalid email or password.');
 

@@ -57,33 +57,38 @@ exports.getNewPassword = (req, res) => {
 
 exports.postLogin = (req, res) => {
 	const errors = validationResult(req);
+	const email = req.body.email;
+	const password = req.body.password;
+
+	const showError = errors => res.status(422).render('auth/login', {
+		errorMessage: errors ? errors.array()[0].msg : 'Invalid email or password.',
+
+		invalidFields: errors
+			? errors
+				|> it.array()
+				|> fp.map(it.param)
+
+			: ['email', 'password'],
+
+		oldInput: {
+			email: email,
+			password: password,
+		},
+
+		pageTitle: 'Login',
+		path: '/login',
+	});
 
 	if(!errors.isEmpty())
-		return res.status(422).render('auth/login', {
-			errorMessage: errors.array()[0].msg,
-			pageTitle: 'Login',
-			path: '/login',
-		});
+		return showError(errors);
 
-	const redirectOnError = () => {
-		req.flash('error', 'Invalid email or password.');
-
-		return req.session.save(err => {
-			if(err)
-				console.error(err);
-
-			return res.redirect('/login');
-		});
-	};
-
-	User.findOne({email: req.body.email})
+	User.findOne({email: email})
 
 		.then(user => {
-			if(!user) {
-				return redirectOnError();
-			}
+			if(!user)
+				return showError();
 
-			bcrypt.compare(req.body.password, user.password)
+			bcrypt.compare(password, user.password)
 
 				.then(isMatch => {
 					if(isMatch) {
@@ -98,7 +103,7 @@ exports.postLogin = (req, res) => {
 						});
 					}
 
-					return redirectOnError();
+					return showError();
 				})
 
 				.catch(err => {

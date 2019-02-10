@@ -1,11 +1,14 @@
 const crypto = require('crypto');
 
 const bcrypt = require('bcryptjs');
+const {it} = require('param.macro');
+const fp = require('lodash/fp');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const {validationResult} = require('express-validator/check');
 
 const User = require('../models/user');
+
 
 const transporter = sendgridTransport({auth: {api_key: process.env.SENDGRID_API_KEY}})
 	|> nodemailer.createTransport;
@@ -110,12 +113,18 @@ exports.postLogin = (req, res) => {
 exports.postSignup = (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
-
 	const errors = validationResult(req);
 
 	if(!errors.isEmpty()) {
 		return res.status(422).render('auth/signup', {
 			errorMessage: errors.array()[0].msg,
+
+			oldInput: {
+				confirmPassword: req.body.confirmPassword,
+				email: email,
+				password: password,
+			},
+
 			pageTitle: 'Signup',
 			path: '/signup',
 		});

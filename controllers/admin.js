@@ -36,7 +36,7 @@ exports.postAddProduct = (req, res) => {
 
 		.save()
 		.then(() => res.redirect('/'))
-		.catch(err => console.error(err));
+		.catch(console.error);
 };
 
 exports.getAddProduct = (req, res) => res.render('admin/add-product', {
@@ -55,29 +55,52 @@ exports.getEditProduct = (req, res) => Product.findById(req.params.productId)
 		product: product,
 	}))
 
-	.catch(err => console.error(err));
+	.catch(console.error);
 
 exports.postEditProduct = (req, res) => {
-	Product.findById(req.params.productId)
+	const productId = req.params.productId;
+	const description = req.body.description;
+	const imageUrl = req.body.imageUrl;
+	const price = req.body.price;
+	const title = req.body.title;
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty())
+		return res.render('admin/edit-product', {
+			errorMessage: errors.array()[0].msg,
+			hasError: true,
+			pageTitle: 'Edit product',
+			path: '/admin/products',
+
+			product: {
+				_id: productId,
+				description: description,
+				imageUrl: imageUrl,
+				price: price,
+				title: title,
+			},
+		});
+
+	Product.findById(productId)
 
 		.then(product => {
-			if (product.userId.toString() !== req.user._id.toString())
+			if(product.userId.toString() !== req.user._id.toString())
 				return res.redirect('/');
 
-			product.description = req.body.description;
-			product.imageUrl = req.body.imageUrl;
-			product.price = req.body.price;
-			product.title = req.body.title;
+			product.description = description;
+			product.imageUrl = imageUrl;
+			product.price = price;
+			product.title = title;
 
 			return product.save().then(() => res.redirect('/admin/products'));
 		})
 
-		.catch(err => console.error(err));
+		.catch(console.error);
 };
 
 exports.postDeleteProduct = (req, res) => Product.deleteOne({_id: req.body.productId, userId: req.user._id})
 	.then(() => res.redirect('/admin/products'))
-	.catch(err => console.error(err));
+	.catch(console.error);
 
 exports.getProducts = (req, res) => Product.find({userId: req.user._id})
 
@@ -87,4 +110,4 @@ exports.getProducts = (req, res) => Product.find({userId: req.user._id})
 		prods: products,
 	}))
 
-	.catch(err => console.error(err));
+	.catch(console.error);

@@ -75,7 +75,7 @@ app.use((req, res, next) => {
 		})
 
 		.catch(err => {
-			throw new Error(err);
+			next(new Error(err));
 		});
 });
 
@@ -95,7 +95,10 @@ app.use(errorController.get404);
 
 // Add error handling middleware
 app.use((error, req, res, next) => { // eslint-disable-line no-unused-vars
-	res.redirect('/500');
+	res.status(500).render('500', {
+		pageTitle: 'Error!',
+		path: '/500',
+	});
 });
 
 mongoose

@@ -1,8 +1,12 @@
-const handleError = next => err => {
-	console.log(err);
-	const error = new Error(err);
-	error.httpStatusCode = 500;
-	return next(error);
-};
+const {_} = require('param.macro');
+const fp = require('lodash/fp');
+
+const log = a => (console.log(a), a);
+
+const handleError = next => err => err
+	|> log
+	|> new Error(_)
+	|> fp.set('httpStatusCode', '500')
+	|> next;
 
 module.exports = handleError;

@@ -36,7 +36,7 @@ exports.postAddProduct = (req, res, next) => {
 	})
 
 		.save()
-		.then(() => res.redirect('/'))
+		.then(() => res.redirect('/admin/products'))
 		.catch(handleError(next));
 };
 

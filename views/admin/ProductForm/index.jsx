@@ -21,7 +21,7 @@ const ProductForm = props => <form action={props.action} method="POST">
 		/>
 	</div>
 
-	<div className="form-group">
+	{/* <div className="form-group">
 		<label htmlFor="imageUrl">Image Url</label>
 
 		<input
@@ -30,6 +30,18 @@ const ProductForm = props => <form action={props.action} method="POST">
 			id="imageUrl"
 			name="imageUrl"
 			defaultValue={props.data.imageUrl}
+		/>
+	</div> */}
+
+	<div className="form-group">
+		<label htmlFor="image">Image</label>
+
+		<input
+			type="file"
+			className="form-control"
+			id="image"
+			name="image"
+			// defaultValue={props.data.image}
 		/>
 	</div>
 

@@ -5,11 +5,27 @@ const Product = require('../models/product');
 
 exports.postAddProduct = (req, res, next) => {
 	const description = req.body.description;
-	const imageUrl = req.file;
+	const image = req.file;
 	const price = req.body.price;
 	const title = req.body.title;
 	const userId = req.user._id;
 	const errors = validationResult(req);
+
+	if(!image)
+		return res.render('admin/add-product', {
+			errorMessage: 'Attached file is not an image.',
+			hasError: true,
+			pageTitle: 'Add product',
+			path: '/admin/add-product',
+
+			product: {
+				description: description,
+				image: image,
+				price: price,
+				title: title,
+				userId: userId,
+			},
+		});
 
 	if(!errors.isEmpty())
 		return res.render('admin/add-product', {
@@ -20,7 +36,6 @@ exports.postAddProduct = (req, res, next) => {
 
 			product: {
 				description: description,
-				imageUrl: imageUrl,
 				price: price,
 				title: title,
 				userId: userId,
@@ -29,7 +44,7 @@ exports.postAddProduct = (req, res, next) => {
 
 	new Product({
 		description: description,
-		imageUrl: imageUrl,
+		imageUrl: image.path,
 		price: price,
 		title: title,
 		userId: userId,
@@ -61,7 +76,7 @@ exports.getEditProduct = (req, res, next) => Product.findById(req.params.product
 exports.postEditProduct = (req, res, next) => {
 	const productId = req.params.productId;
 	const description = req.body.description;
-	const imageUrl = req.body.imageUrl;
+	const image = req.file;
 	const price = req.body.price;
 	const title = req.body.title;
 	const errors = validationResult(req);
@@ -76,7 +91,6 @@ exports.postEditProduct = (req, res, next) => {
 			product: {
 				_id: productId,
 				description: description,
-				imageUrl: imageUrl,
 				price: price,
 				title: title,
 			},
@@ -89,7 +103,10 @@ exports.postEditProduct = (req, res, next) => {
 				return res.redirect('/');
 
 			product.description = description;
-			product.imageUrl = imageUrl;
+
+			if(image)
+				product.imageUrl = image.path;
+
 			product.price = price;
 			product.title = title;
 

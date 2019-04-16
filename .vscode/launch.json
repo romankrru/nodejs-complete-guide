@@ -12,7 +12,11 @@
 			"program": "${workspaceFolder}/app.js",
 			"restart": true,
 			"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
-			"console": "integratedTerminal"
+			"console": "integratedTerminal",
+			"runtimeArgs": [
+				"--exec",
+				"babel-node"
+			]
 		}
 	]
 }

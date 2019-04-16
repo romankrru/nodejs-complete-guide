@@ -33,6 +33,8 @@ const Orders = props => <DefaultLayout
 				</tr>)}
 			</tbody>
 		</table>
+
+		<a href={`/orders/${order._id.toString()}`} className="btn btn-primary">Download Invoice</a>
 	</React.Fragment> )}
 </DefaultLayout>;
 

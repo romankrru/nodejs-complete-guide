@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const path = require('path');
 
 const {_, it} = require('param.macro');
+const fp = require('lodash/fp');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -53,12 +54,20 @@ path.join(__dirname, '/views') |> app.set('views', _);
 bodyParser.urlencoded({extended: false}) |> app.use;
 
 // Setup multer
+const fileFilter = (req, file, cb) => ['image/png', 'image/jpg', 'image/jpeg']
+	|> fp.includes(file.mimetype)
+	|> cb(null, _);
+
 multer.diskStorage({
 	destination: (req, file, cb) => cb(null, 'images'),
 	filename: (req, file, cb) => cb(null, `${uuidv4()}___${file.originalname}`),
 })
 
-	|> multer({storage: _})
+	|> multer({
+		fileFilter: fileFilter,
+		storage: _,
+	})
+
 	|> it.single('image')
 	|> app.use;
 

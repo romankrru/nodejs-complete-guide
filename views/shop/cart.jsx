@@ -11,7 +11,7 @@ const Cart = props => {
 		content = <React.Fragment>
 			<ul className="list-unstyled">
 				{props.products.map(product => <li className="media mt-2 border" key={product._id}>
-					<img src={product.productId.imageUrl} className="cart-image m-2 img-thumbnail" alt="A Book" />
+					<img src={`/${product.productId.imageUrl}`} className="cart-image m-2 img-thumbnail" alt="A Book" />
 
 					<div className="media-body">
 						<h5 className="mt-2 mb-1">

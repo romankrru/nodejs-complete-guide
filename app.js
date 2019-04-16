@@ -77,6 +77,10 @@ path.join(__dirname, 'public')
 	|> express.static
 	|> app.use;
 
+path.join(__dirname, 'images')
+	|> express.static
+	|> app.use('/images', _);
+
 app.use((req, res, next) => {
 	if (!req.session.user)
 		return next();

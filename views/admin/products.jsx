@@ -7,7 +7,7 @@ const CSRFInput = require('../common/CSRFInput');
 const renderProductsRow = (row, i) => <div className="row" key={i}>
 	{fp.map(product => <div className="col-md-3 mb-3 mt-4" key={product._id}>
 		<div className="card">
-			<img src={product.imageUrl} className="card-img-top" alt=" ABook" />
+			<img src={`/${product.imageUrl}`} className="card-img-top" alt=" ABook" />
 
 			<div className="card-body">
 				<h5 className="card-title">{product.title}</h5>

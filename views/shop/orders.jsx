@@ -12,7 +12,8 @@ const Orders = props => <DefaultLayout
 	<hr/>
 
 	{_.map(props.orders, order => <React.Fragment key={order._id.toString()}>
-		<h5>Order - #{order._id.toString()}:</h5>
+		<h5>Order - #{order._id.toString()}</h5>
+		<a href={`/orders/${order._id.toString()}`}>Download Invoice</a>
 
 		<table key={order._id} className="table table-bordered">
 			<thead>
@@ -33,8 +34,6 @@ const Orders = props => <DefaultLayout
 				</tr>)}
 			</tbody>
 		</table>
-
-		<a href={`/orders/${order._id.toString()}`} className="btn btn-primary">Download Invoice</a>
 	</React.Fragment> )}
 </DefaultLayout>;
 

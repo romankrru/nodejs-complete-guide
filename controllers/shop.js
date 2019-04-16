@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const PDFDocument = require('pdfkit');
 
 const Product = require('../models/product');
@@ -145,17 +142,30 @@ exports.getInvoice = (req, res, next) => {
 				return next(new Error('You are not allowed to download this invoice.'));
 
 			const invoiceName = `invoice-${orderId}.pdf`;
-			const invoicePath = path.join('data', 'invoices', invoiceName);
-
 			const pdfDoc = new PDFDocument();
 
 			res.setHeader('Content-Type', 'application/pdf');
 			res.setHeader('Content-Disposition', `inline; filename="${invoiceName}"`);
 
-			pdfDoc.pipe(fs.createWriteStream(invoicePath));
 			pdfDoc.pipe(res);
 
-			pdfDoc.text('Hello world!');
+			pdfDoc.fontSize(26).text('Invoice', {
+				underline: true,
+			});
+
+			let totalPrice = 0;
+
+			order.products.forEach(prod => {
+				totalPrice += prod.quantity * prod.product.price;
+
+				pdfDoc
+					.fontSize(12)
+					.text(`${prod.product.title} - ${prod.quantity} x $${prod.product.price}`);
+			});
+
+			pdfDoc.text('--------------------');
+			pdfDoc.fontSize(20).text(`Total: $${totalPrice}`);
+
 			pdfDoc.end();
 		})
 

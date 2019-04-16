@@ -13,6 +13,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const uuidv4 = require('uuid/v4');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -51,7 +52,16 @@ path.join(__dirname, '/views') |> app.set('views', _);
 // Setup body parser
 bodyParser.urlencoded({extended: false}) |> app.use;
 
-multer({dest: 'images'}).single('image') |> app.use;
+// Setup multer
+multer.diskStorage({
+	destination: (req, file, cb) => cb(null, 'images'),
+	filename: (req, file, cb) => cb(null, `${uuidv4()}___${file.originalname}`),
+})
+
+	|> multer({storage: _})
+	|> it.single('image')
+	|> app.use;
+
 
 // Setup CSRF protection
 csrf() |> app.use;

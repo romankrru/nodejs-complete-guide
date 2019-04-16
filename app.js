@@ -5,7 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
 const path = require('path');
 
 const {_, it} = require('param.macro');
-const fp = require('lodash/fp');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -27,17 +26,16 @@ const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO
 const app = express();
 
 // Setup sessions
-new MongoDBStore({
-	collection: 'sessions',
-	uri: MONGODB_URI,
-})
+session({
+	resave: false,
+	saveUninitialized: false,
+	secret: process.env.SESSION_SECRET,
 
-	|> session({
-		resave: false,
-		saveUninitialized: false,
-		secret: process.env.SESSION_SECRET,
-		store: _,
-	})
+	store: new MongoDBStore({
+		collection: 'sessions',
+		uri: MONGODB_URI,
+	}),
+})
 
 	|> app.use;
 
@@ -54,23 +52,20 @@ path.join(__dirname, '/views') |> app.set('views', _);
 bodyParser.urlencoded({extended: false}) |> app.use;
 
 // Setup multer
-const fileFilter = (req, file, cb) => ['image/png', 'image/jpg', 'image/jpeg']
-	|> fp.includes(file.mimetype)
-	|> cb(null, _);
+multer({
+	fileFilter: (req, file, cb) => cb(
+		null,
+		['image/png', 'image/jpg', 'image/jpeg'].includes(file.mimetype)
+	),
 
-multer.diskStorage({
-	destination: (req, file, cb) => cb(null, 'images'),
-	filename: (req, file, cb) => cb(null, `${uuidv4()}___${file.originalname}`),
+	storage: multer.diskStorage({
+		destination: (req, file, cb) => cb(null, 'images'),
+		filename: (req, file, cb) => cb(null, `${uuidv4()}___${file.originalname}`),
+	}),
 })
-
-	|> multer({
-		fileFilter: fileFilter,
-		storage: _,
-	})
 
 	|> it.single('image')
 	|> app.use;
-
 
 // Setup CSRF protection
 csrf() |> app.use;
@@ -116,12 +111,10 @@ app.get('/500', errorController.get500);
 app.use(errorController.get404);
 
 // Add error handling middleware
-app.use((error, req, res, next) => { // eslint-disable-line no-unused-vars
-	res.status(500).render('500', {
-		pageTitle: 'Error!',
-		path: '/500',
-	});
-});
+app.use((error, req, res, next) => res.status(500).render('500', { // eslint-disable-line no-unused-vars
+	pageTitle: 'Error!',
+	path: '/500',
+}));
 
 mongoose
 	.connect(MONGODB_URI, {useNewUrlParser: true})

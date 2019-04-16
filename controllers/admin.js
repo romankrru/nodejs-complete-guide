@@ -5,7 +5,7 @@ const Product = require('../models/product');
 
 exports.postAddProduct = (req, res, next) => {
 	const description = req.body.description;
-	const imageUrl = req.body.imageUrl;
+	const imageUrl = req.file;
 	const price = req.body.price;
 	const title = req.body.title;
 	const userId = req.user._id;

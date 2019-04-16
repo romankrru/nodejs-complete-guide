@@ -12,6 +12,7 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const multer = require('multer');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -49,6 +50,8 @@ path.join(__dirname, '/views') |> app.set('views', _);
 
 // Setup body parser
 bodyParser.urlencoded({extended: false}) |> app.use;
+
+multer({dest: 'images'}).single('image') |> app.use;
 
 // Setup CSRF protection
 csrf() |> app.use;

@@ -11,7 +11,7 @@ const productValidators = [
 		.isLength({min: 3})
 		.trim(),
 
-	body('imageUrl', 'Image url should be a valid url.').isURL(),
+	// body('imageUrl', 'Image url should be a valid url.').isURL(),
 	body('price', 'Price should be a floating number.').isFloat(),
 
 	body('description', 'Description should have min length of 5 and max length of 400.')

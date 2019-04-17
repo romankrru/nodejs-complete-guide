@@ -28,9 +28,13 @@ const ProductList = props => {
 	let content = <h1>No products to display</h1>;
 
 	if (props.prods.length) {
-		content = props.prods
-			|> fp.chunk(4)
-			|> fp.map(renderProductsRow);
+		content =
+
+		content = <div>
+			{props.prods |> fp.chunk(4) |> fp.map(renderProductsRow)}
+			<a href="/products/?page=1">1</a>{' | '}
+			<a href="/products/?page=2">2</a>
+		</div>
 	}
 
 

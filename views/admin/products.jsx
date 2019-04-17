@@ -14,18 +14,22 @@ const renderProductsRow = (row, i) => <div className="row" key={i}>
 				<p className="card-text">{product.description}</p>
 				<p className="card-text">${product.price}</p>
 
-				<form action="/admin/delete-product" method="POST">
-					<a
-						href={`/admin/edit-product/${product._id}`}
-						className="btn btn-primary mr-3"
-					>
-						Edit
-					</a>
+				<a
+					href={`/admin/edit-product/${product._id}`}
+					className="btn btn-primary mr-3"
+				>
+					Edit
+				</a>
 
-					<CSRFInput />
-					<input type="hidden" value={product._id} name="productId" />
-					<button type="submit" className="btn btn-danger">Delete</button>
-				</form>
+				<CSRFInput />
+
+				<button
+					id="delete-product-btn"
+					className="btn btn-danger"
+					data-product-id={product._id}
+				>
+					Delete
+				</button>
 			</div>
 		</div>
 	</div>, row)}

@@ -20,6 +20,8 @@ const DefaultLayout = props => <html lang="en">
 		<div className="container">
 			{props.children}
 		</div>
+
+		{props.path === '/admin/products' && <script src="/js/admin.js"></script>}
 	</body>
 </html>;
 

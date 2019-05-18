@@ -2,7 +2,6 @@ const React = require('react');
 const _ = require('lodash');
 
 const DefaultLayout = require('../layouts/default');
-const CSRFInput = require('../common/CSRFInput');
 
 const Cart = props => {
 	let content = <h1>Cart is empty</h1>;
@@ -40,10 +39,7 @@ const Cart = props => {
 
 			<hr/>
 
-			<form action="/create-order" method="POST">
-				<CSRFInput />
-				<button className="btn btn-primary">Order now!</button>
-			</form>
+			<a className="btn btn-primary" href="/checkout">Order now!</a>
 		</React.Fragment>
 	}
 
